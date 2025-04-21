@@ -1,5 +1,5 @@
 {
-  "name": "berry-free-material-react-cra",
+  "name": "clikd_frontend",
   "version": "3.3.2",
   "private": true,
   "homepage": "/",
@@ -24,7 +24,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@turf/turf": "^6.5.0",
     "apexcharts": "^3.35.3",
-    "axios": "^1.7.2",
+    "axios": "^1.8.4",
     "formik": "^2.2.9",
     "framer-motion": "^6.3.16",
     "leaflet": "^1.9.4",
@@ -41,6 +41,7 @@
     "react-router": "6.3.0",
     "react-router-dom": "6.3.0",
     "react-scripts": "^5.0.1",
+    "react-toastify": "^11.0.5",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "use-places-autocomplete": "^4.0.1",

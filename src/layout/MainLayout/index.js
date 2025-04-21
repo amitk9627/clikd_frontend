@@ -55,17 +55,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = () => {
-  const navigate = useNavigate();
-  // protected Routes
-  // const [roles] = useState(localStorage.getItem('role'));
-  useEffect(() => {
-    // let role = localStorage.getItem('role');
-
-    if (localStorage.getItem('role') == null) {
-      navigate('/');
-    }
-  }, []);
-  //
   const theme = useTheme();
   const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
   // Handle left drawer
