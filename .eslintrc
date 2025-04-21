@@ -1,0 +1,146 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "prettier",
+    "plugin:react/jsx-runtime",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "fragment": "Fragment",
+      "version": "detect",
+      "flowVersion": "0.53"
+    },
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "impliedStrict": true,
+      "jsx": true
+    },
+    "ecmaVersion": 12
+  },
+  "plugins": ["prettier", "react", "react-hooks"],
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/jsx-uses-vars": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-undef": "off",
+    "react/display-name": "off",
+    "react/jsx-filename-extension": "off",
+    "no-param-reassign": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "react/no-array-index-key": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/forbid-prop-types": "off",
+    "import/order": "off",
+    "import/no-cycle": "off",
+    "no-console": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "prefer-destructuring": "off",
+    "no-shadow": "off",
+    "import/no-named-as-default": "off",
+    "import/no-extraneous-dependencies": "off",
+    "jsx-a11y/no-autofocus": "off",
+    "no-restricted-imports": "off",
+    "no-unused-vars": "off",
+    "prettier/prettier": "off",
+    "jsx-a11y/click-events-have-key-events": "off"
+
+  }
+  ,
+  "overrides": [
+    {
+      "files": ["src/views/utilities/Blog/AddBlog.js"],
+      "rules": {
+        // Turn off specific rules for AddBlog.js
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/alt-text": "off"
+        // ... add more rules if needed
+      }
+    }
+    ,
+    {
+      "files": ["src/views/utilities/Billing/InVoice/FinalInvoice.js"],
+      "rules": {
+        // Turn off specific rules for FinalInvoice.js
+        "jsx-a11y/no-static-element-interactions": "off",
+        "react/jsx-key": "off",
+        "jsx-a11y/alt-text": "off"
+        // ... add more rules if needed
+      }
+    }
+    ,
+    {
+      "files": ["src/views/utilities/Billing/InVoice/FineComponent.js"],
+      "rules": {
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/alt-text": "off"
+        // ... add more rules if needed
+      }
+    }
+    ,
+    {
+      "files": ["src/views/utilities/CarForms/CarGridForm.js"],
+      "rules": {
+        "jsx-a11y/no-static-element-interactions": "off"
+        // ... add more rules if needed
+      }
+    }
+    ,
+    {
+      "files": ["src/views/utilities/Billing/InVoice/FineComponent.js"],
+      "rules": {
+        "jsx-a11y/img-redundant-alt": "off"
+        // ... add more rules if needed
+      }
+    },
+    {
+      "files": ["src/views/utilities/Blog/BlogUpdateForm.js"],
+      "rules": {
+        "jsx-a11y/no-static-element-interactions": "off"
+        // ... add more rules if needed
+      }
+    },
+    {
+      "files": ["src/views/utilities/Booking/CreateBooking.js"],
+      "rules": {
+        "jsx-a11y/label-has-associated-control": "off",
+        "react/jsx-key": "off"
+        // ... add more rules if needed
+      }
+    },
+    {
+      "files": ["src/views/utilities/CarForms/CarApproved.js"],
+      "rules": {
+        "react/jsx-key": "off",
+        "jsx-a11y/no-static-element-interactions": "off"
+        // ... add more rules if needed
+      }
+    },
+    {
+      "files": ["src/views/utilities/CarForms/CarEditGrid.js"],
+      "rules": {
+        "jsx-a11y/no-static-element-interactions": "off"
+        // ... add more rules if needed
+      }
+    }
+  ]
+}
