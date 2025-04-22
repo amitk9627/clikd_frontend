@@ -25,15 +25,6 @@ store.subscribe(() => {
         breadcrumbs: true,
         target: false
       },
-      {
-        id: 'profile',
-        title: 'My Profile',
-        type: 'item',
-        url: '/profile',
-        icon: icons.IconRoute,
-        breadcrumbs: false,
-        target: false
-      }
     ];
   }
   createUtilitiesObject();

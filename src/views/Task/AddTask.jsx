@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Box, TextField, Button } from '@mui/material';
 import { BackendUrl } from 'utils/config';
 import axios from 'axios';
-const AddTask = ({ onClose }) => {
+const AddTask = ({ onClose, setRefreshPage, toast }) => {
   const [formData, setFormData] = useState({
     title: '',
     date: '',
@@ -34,9 +34,14 @@ const AddTask = ({ onClose }) => {
       .post(`${BackendUrl}/tasks`, { title: formData.title, description: formData.description, dueDate: String(formData.date) })
       .then((res) => {
         console.log(res.data);
+        toast.success(res.data.message);
+        setRefreshPage(true);
         onClose();
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => {
+        console.log(err.response);
+        toast.error(err.response.data.message);
+      });
   };
 
   return (
@@ -80,8 +85,8 @@ const AddTask = ({ onClose }) => {
       </Box>
       <Box mt={2} display="flex" justifyContent="flex-end" gap={1}>
         <Button onClick={() => onClose()}>Cancel</Button>
-        <Button variant="contained" onClick={handleSubmit}>
-          Submit
+        <Button variant="contained" onClick={handleSubmit} className="bg-blue-500 text-white px-3 rounded-xl">
+          Add Task
         </Button>
       </Box>
     </Box>

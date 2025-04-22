@@ -8,9 +8,8 @@ import AuthenticationRoutes from './AuthenticationRoutes';
 
 export default function ThemeRoutes() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
- 
 
-  const isAuthenticated = localStorage.getItem('role');
+  const isAuthenticated = localStorage.getItem('token');
   // console.log(isAuthenticated);
   const routes = isAuthenticated ? [MainRoutes] : [AuthenticationRoutes];
   // console.log(isAuthenticated ? 'called' : 'not cALLED');

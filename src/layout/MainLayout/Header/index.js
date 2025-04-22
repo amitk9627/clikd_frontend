@@ -71,13 +71,13 @@ const Header = ({ handleLeftDrawerToggle }) => {
       </div>
 
       {/* header search */}
-      <SearchSection />
+      {/* <SearchSection /> */}
       {/* <Box sx={{ flexGrow: 1 }} >{Page[0] +" " + Page[1]}</Box> */}
       <Box sx={{ flexGrow: 1 }} />
       <Box sx={{ flexGrow: 1 }} />
 
       {/* notification & profile */}
-      <NotificationSection />
+      {/* <NotificationSection /> */}
       <ProfileSection />
     </>
   );

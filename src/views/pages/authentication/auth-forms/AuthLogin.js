@@ -4,7 +4,7 @@ import { Box, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment,
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-import { SET_AUTH_STATE } from 'store/actions';
+
 import { useDispatch } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
 import { BackendUrl } from 'utils/config';
@@ -34,15 +34,10 @@ export const AuthLogin = () => {
     // console.log(role);
     if (role) {
       localStorage.setItem('role', role);
-      await dispatch({
-        type: SET_AUTH_STATE,
-        payload: role
-      });
     }
   };
 
   const handleLogin = async (e) => {
-    navigate('/');
     e.preventDefault();
     try {
       if (loginForm.userName == '' || loginForm.password == '') {
@@ -50,13 +45,13 @@ export const AuthLogin = () => {
         return;
       }
       const body = {
-        userName: String(loginForm.userName).trim(),
+        email: String(loginForm.userName).trim(),
         password: loginForm.password
       };
-      const response = await axios.post(`${BackendUrl}/app/v1/admin/login`, body);
+      const response = await axios.post(`${BackendUrl}/user/login`, body);
       if (response.status == 200) {
         toast.success('User Found Successfully');
-        funcSetRole(response.data.role);
+        localStorage.setItem('token', response.data.token);
         navigate('/');
       }
       console.log(response);
@@ -76,7 +71,8 @@ export const AuthLogin = () => {
             <div>
               <FormControl fullWidth>
                 <TextField
-                  label="User Name"
+                  label="Email"
+                  type="email"
                   required
                   value={loginForm.userName}
                   onChange={(e) => setLoginForm({ ...loginForm, userName: e.target.value })}
