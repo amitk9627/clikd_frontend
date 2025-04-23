@@ -272,6 +272,7 @@ const Task = () => {
                     value={updateObj.dueDate}
                     onChange={(e) => setUpdateObj({ ...updateObj, dueDate: e.target.value })}
                     fullWidth
+                    onClick={(e)=>e.target.showPicker()}
                     inputProps={{
                       pattern: '\\d{4}-\\d{2}-\\d{2}'
                     }}

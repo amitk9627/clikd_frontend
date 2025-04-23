@@ -67,6 +67,7 @@ const AddTask = ({ onClose, setRefreshPage, toast }) => {
           value={formData.date}
           onChange={handleChange}
           fullWidth
+          onClick={(e)=>e.target.showPicker()}
           InputLabelProps={{
             shrink: true
           }}
