@@ -5,13 +5,12 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { BackendUrl } from 'utils/config';
 import axios from 'axios';
 import AddTask from './AddTask';
 import toast, { Toaster } from 'react-hot-toast';
-import { Modal, Box, TextField, Button, Typography, Stack } from '@mui/material';
+import { Modal, Box, TextField, Button, Typography, Stack, Pagination } from '@mui/material';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -23,7 +22,6 @@ const style = {
   boxShadow: 24,
   p: 4
 };
-import { CircularProgress } from '@mui/material';
 import { IconX, IconPencil, IconUpload, IconTrashX, IconPlus } from '@tabler/icons-react';
 const columns = [
   { id: 'title', label: 'Title', minWidth: 140 },
@@ -47,44 +45,54 @@ const columns = [
 const Task = () => {
   const [allTask, setAllTask] = useState([]);
   const [refreshPage, setRefreshPage] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [search, setSearch] = useState('');
+
   // API calling
   useEffect(() => {
     setRefreshPage(false);
-    axios
-      .get(`${BackendUrl}/tasks`)
-      .then((res) => setAllTask(res.data.result))
-      .catch((err) => console.log(err));
-  }, [refreshPage]);
+    const debounce = setTimeout(() => {
+      axios
+        .get(`${BackendUrl}/tasks?page=${page}&title=${search}`)
+        .then((res) => {
+          setTotalPage(res.data.totalPages);
+          setAllTask(res.data.result);
+        })
+        .catch((err) => console.log(err));
+    }, 1000);
+    return () => clearTimeout(debounce);
+  }, [refreshPage, page, search]);
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
   const [sheetURL, setSheetURL] = useState('');
   const [updateObj, setUpdateObj] = useState({});
   const [uploadModal, setUploadModal] = useState(false);
-  //   const [page, setPage] = React.useState(0);
+
   //   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [formType, setFormType] = useState({
     new: true,
     update: false
   });
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
     setFormType({ new: true, update: false });
   };
-  const handleClose = () => setOpen(false);
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  const handleClose = () => setOpen(false);
+
   const handleUpload = async () => {
     if (!sheetURL) {
       console.log('url is not correct');
     }
     try {
       const { data } = await axios.post(`${BackendUrl}/import`, { sheetURL: sheetURL.trim() });
-      if (data.tasks.length > 0) {
+      if (data.status) {
         setRefreshPage(true);
         setSheetURL('');
         setUploadModal(false);
@@ -95,11 +103,13 @@ const Task = () => {
       console.log(err.response);
     }
   };
+
   const handleUpdateModalOpen = (obj) => {
     setUpdateObj(obj);
     setOpen(true);
     setFormType({ new: false, update: true });
   };
+
   // task delete
   const handleDelete = (id) => {
     axios
@@ -114,6 +124,7 @@ const Task = () => {
         toast.error(err.response.data.message);
       });
   };
+
   // task update
   const handleUpdate = () => {
     if (!updateObj.title) {
@@ -153,11 +164,6 @@ const Task = () => {
       <div>
         <Toaster />
       </div>
-      {refreshPage && (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-          <CircularProgress />
-        </div>
-      )}
       <div className="p-3 flex flex-col gap-5 bg-white">
         <div className="relative border-b border-gray-400 pb-2">
           <h1 className="text-2xl text-center">Task</h1>
@@ -171,6 +177,19 @@ const Task = () => {
           >
             <IconUpload stroke={2} /> Upload Sheet
           </button>
+        </div>
+        <div>
+          <TextField
+            label="Title"
+            variant="outlined"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            fullWidth
+            InputLabelProps={{
+              shrink: true
+            }}
+          />
         </div>
 
         <div>
@@ -206,15 +225,11 @@ const Task = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              {/* <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          /> */}
+              <div className="flex items-center justify-center">
+                <Stack>
+                  <Pagination count={totalPage} page={page} onChange={handleChange} />
+                </Stack>
+              </div>
             </Paper>
           </div>
         </div>

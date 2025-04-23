@@ -41,7 +41,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
               width: 'auto'
             }
           }}
-          className="h-full flex justify-between"
+          className="h-full flex justify-between items-center"
         >
           <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }} className="m-3 pl-3">
             <LogoSection />
